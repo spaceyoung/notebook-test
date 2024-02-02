@@ -6,7 +6,7 @@ import { database, myReadingDB, myReadingEndDB } from '@/datasources/firebase';
 import { collection, doc, setDoc, deleteDoc, updateDoc } from "firebase/firestore";
 
 export const useNotebookStore = defineStore("notebook", () => {
-  const ttbKey = "ttbcheo4150851003";
+  const ttbKey = "ttbcheo4150851004";
   const baseURL = `/api/ItemSearch.aspx?ttbkey=${ttbKey}&MaxResults=50&start=1&SearchTarget=Book&output=JS&Cover=Big&Version=20131101&Querytype=`;
   const DetailBaseURL = `/api/ItemLookUp.aspx?ttbkey=${ttbKey}&itemIdType=ISBN13&output=JS&Cover=Big&Version=20131101&ItemId=`;
 
