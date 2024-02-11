@@ -18,6 +18,10 @@ const { state } = useNotebookStore();
 </script>
 
 <style>
+.reading-tabs {
+  flex-grow: 0;
+  flex-shrink: 0;
+}
 .reading-tabs .v-btn {
   font-family: LeeSeoyun, Roboto, "돋움", dotum, AppleGothic, sans-serif;
   letter-spacing: -1px;

@@ -1,10 +1,10 @@
 <template>
   <Loading v-if="isLoading" />
   <div v-else class="my-reading-end contents-wrap">
-    <div v-if="myReadingEndList.length === 0" class="book-none">
+    <!-- <div v-if="myReadingEndList.length === 0" class="book-none">
       <p><span>읽은 책을 추가해서</span>나만의 독서 기록을 만들어봐요😉</p>
-    </div>
-    <v-list v-else class="book-list px-0 py-8 pa-sm-8">
+    </div> -->
+    <v-list class="book-list px-0 py-8 pa-sm-8">
       <v-hover v-for="myReadingEndItem in myReadingEndList" :key="myReadingEndItem.isbn" v-slot="{ isHovering, props }">
         <v-card v-bind="props" class="book-item pa-1 pa-sm-3" variant="flat">
           <v-img :src="myReadingEndItem.cover" :alt="myReadingEndItem.title" class="book-cover mr-6 mr-sm-8" cover />

@@ -2,13 +2,18 @@
             LAYOUT
 ******************************/
 .app .contents {
+  display: flex;
+  flex-direction: column;
   height: 100vh;
   max-height: 100vh;
   border-left: 2px solid #ca4f34;
   background-color: rgba(255, 255, 255, .6);
   position: relative;
+  overflow: hidden;
 }
 .contents .view {
+  display: flex;
+  flex-direction: column;
   background-color: transparent;
   overflow-y: scroll;
 }
@@ -35,6 +40,12 @@
   border-radius: 0;
   background-color: transparent;
 }
+.contents .close-button {
+  flex-grow: 0;
+  flex-shrink: 0;
+  align-self: end;
+  order: -1;
+}
 
 
 /******************************
@@ -49,9 +60,10 @@
   justify-content: center;
   align-items: center;
   height: 100%;
-  font-size: 1.4em;
+  font-size: 2em;
   font-family: LeeSeoyun, Roboto, "돋움", dotum, AppleGothic, sans-serif;
   text-align: center;
+  transition: all .3s;
 }
 .contents .book-none p span {
   display: block;
@@ -76,6 +88,7 @@
   font-size: .9em;
   color: #bbb;
 }
+.contents .book-buttons .v-btn.record-button,
 .contents .book-buttons .v-btn.modify-button {
   border-color: #ca4f34;
   color: #fff;
@@ -104,6 +117,9 @@
 
 /* -------------------- Loading -------------------- */
 .contents .loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   background-color: rgba(255, 255, 255, .9);
   position: absolute;
   z-index: 100;
@@ -183,6 +199,14 @@
 .contents .book-info .book-record-button {
   justify-content: end;
 }
+.contents .book-info .book-record-button .v-btn {
+  border-color: #ca4f34;
+  background-color: #ca4f34;
+}
+.contents .book-info .book-record-button .v-btn__content {
+  font-size: 1em;
+  color: #fff;
+}
 
 /* -------------------- BookDesc -------------------- */
 .contents .book-desc p {
@@ -206,7 +230,7 @@
   width: 75%;
 }
 
-/* -------------------- ReadingDate -------------------- */
+/* -------------------- ReadingPage -------------------- */
 .contents .book-reading-page > div {
   display: flex;
 }
@@ -231,9 +255,12 @@
       max-width: 1279px;
 ******************************/
 @media all and (max-width: 1279px) {
+  /******************************
+              LAYOUT
+  ******************************/
   .app .contents {
     height: auto;
-    min-height: calc(100vh - 538px);
+    min-height: calc(100vh - 514px);
     max-height: none;
     border-top: 2px solid #ca4f34;
     border-left: none;
@@ -243,6 +270,14 @@
   .contents .view {
     overflow-y: auto;
   }
+
+  /******************************
+            COMPONENTS
+  ******************************/
+  /* -------------------- COMMON -------------------- */
+  .contents .book-none {
+    font-size: 1.8em;
+  }
 }
 
 
@@ -250,6 +285,9 @@
       max-width: 959px;
 ******************************/
 @media all and (max-width: 959px) {
+  /******************************
+              LAYOUT
+  ******************************/
   .contents .book-list {
     gap: 20px 60px;
   }
@@ -263,22 +301,22 @@
       max-width: 599px;
 ******************************/
 @media all and (max-width: 599px) {
+  /******************************
+              LAYOUT
+  ******************************/
   .app .contents {
-    min-height: calc(100vh - 488px);
+    min-height: calc(100vh - 464px);
   }
   .contents .book-list {
     gap: 15px 60px;
   }
-  .contents .book-date {
-    gap: 48px;
-  }
-  .contents .book-date .book-date-start,
-  .contents .book-date .book-date-end {
-    width: 100%;
-  }
-  .contents .book-cover {
-    width: 114px;
-    height: 155px;
+
+  /******************************
+            COMPONENTS
+  ******************************/
+  /* -------------------- COMMON -------------------- */
+  .contents .book-none {
+    font-size: 1.6em;
   }
   .contents .book-buttons {
     gap: 15px 20px;
@@ -289,5 +327,40 @@
   .contents .book-buttons .v-btn.modify-button {
     order: -1;
     width: 100%;
+  }
+
+  /* -------------------- BookInfo -------------------- */
+  .contents .book-cover {
+    width: 114px;
+    height: 155px;
+  }
+  .contents .book-info span {
+    font-size: 1.05em;
+  }
+  .contents .book-info .book-title {
+    font-size: 1.1em;
+  }
+  .contents .book-info .book-progress .book-progress-percent {
+    font-size: .8em;
+  }
+
+  /* -------------------- ReadingDate -------------------- */
+  .contents .book-date {
+    gap: 48px;
+  }
+  .contents .book-date .book-date-start,
+  .contents .book-date .book-date-end {
+    width: 100%;
+  }
+  .v-picker.v-sheet.v-date-picker {
+    display: block;
+    width: auto;
+  }
+  .v-picker.v-sheet.v-date-picker .v-date-picker-month {
+    min-width: 0;
+  }
+  .v-picker.v-sheet.v-date-picker .v-date-picker-month__day {
+    width: 40px;
+    height: 40px;
   }
 }

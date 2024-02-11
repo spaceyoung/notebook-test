@@ -1,10 +1,10 @@
 <template>
   <Loading v-if="isLoading" />
   <div v-else class="my-reading contents-wrap">
-    <div v-if="myReadingList.length === 0" class="book-none">
+    <!-- <div v-if="myReadingList.length === 0" class="book-none">
       <p><span>읽은 책을 추가해서</span>나만의 독서 기록을 만들어봐요😉</p>
-    </div>
-    <v-list v-else class="book-list px-0 py-8 pa-sm-8">
+    </div> -->
+    <v-list class="book-list px-0 py-8 pa-sm-8">
       <v-hover v-for="myReadingItem in myReadingList" :key="myReadingItem.isbn" v-slot="{ isHovering, props }">
         <v-card v-bind="props" class="book-item pa-1 pa-sm-3" variant="flat">
           <v-img :src="myReadingItem.cover" :alt="myReadingItem.title" class="book-cover mr-6 mr-sm-8" cover />
@@ -18,9 +18,9 @@
               <span class="book-pubdate">{{ myReadingItem.pubDate }}</span>
             </v-card-text>
             <div class="book-progress">
-              <span class="book-reading-start mb-2"><em class="mr-2">독서 시작</em>{{ myReadingItem.formattedStartDate
+              <span class="book-reading-start mb-1 mb-sm-2"><em class="mr-2">독서 시작</em>{{ myReadingItem.formattedStartDate
               }}</span>
-              <v-progress-linear :model-value="myReadingProgress(myReadingItem)" class="book-progress-bar mb-1"
+              <v-progress-linear :model-value="myReadingProgress(myReadingItem)" class="book-progress-bar mb-0 mb-sm-1"
                 :height="9" color="#ca4f34" rounded />
               <span class="book-progress-percent">{{ myReadingProgress(myReadingItem) }}</span>
             </div>
@@ -46,4 +46,17 @@ const myReadingList = computed(() => useNotebookStore().myReadingList);
 vuefireMyReading();
 </script>
 
-<style></style>
+<style scoped>
+/******************************
+      max-width: 599px;
+******************************/
+@media all and (max-width: 599px) {
+  /******************************
+            COMPONENTS
+  ******************************/
+  /* -------------------- BookInfo -------------------- */
+  .contents .book-info .book-progress .book-reading-start {
+    font-size: .95em;
+  }
+}
+</style>

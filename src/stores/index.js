@@ -5,9 +5,10 @@ import { useCollection } from 'vuefire';
 import { database, myReadingDB, myReadingEndDB } from '@/datasources/firebase';
 import { collection, doc, setDoc, deleteDoc, updateDoc } from "firebase/firestore";
 
+
 export const useNotebookStore = defineStore("notebook", () => {
-  const ttbKey = "ttbcheo4150851004";
-  const baseURL = `/api/ItemSearch.aspx?ttbkey=${ttbKey}&MaxResults=50&start=1&SearchTarget=Book&output=JS&Cover=Big&Version=20131101&Querytype=`;
+  const ttbKey = import.meta.env.VITE_ALADIN_APP_KEY;
+  const baseURL = `/api/ItemSearch.aspx?ttbkey=${ttbKey}&MaxResults=50&SearchTarget=Book&output=JS&Cover=Big&Version=20131101&Querytype=`;
   const DetailBaseURL = `/api/ItemLookUp.aspx?ttbkey=${ttbKey}&itemIdType=ISBN13&output=JS&Cover=Big&Version=20131101&ItemId=`;
 
   const state = reactive({
@@ -95,12 +96,14 @@ export const useNotebookStore = defineStore("notebook", () => {
 
   // 도서 기본정보 검색
   const searchBookBase = async (searchWord) => {
+    // 제목으로 검색
     if (state.selectOption === state.options[0]) {
-      const response = await axios.get(baseURL + `Title&Query=${searchWord}`);
+      const response = await axios.get(baseURL + `Title&Query=${searchWord}&start=1`);
       const results = response.data.item;
       state.searchBookList = [];
       return results;
     }
+    // 작가명으로 검색
     else if (state.selectOption === state.options[1]) {
       const response = await axios.get(baseURL + `Author&Query=${searchWord}`);
       const results = response.data.item;
