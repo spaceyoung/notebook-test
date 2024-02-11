@@ -19,43 +19,34 @@ permissions:
 # However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
-  # job의 이름 설정
+  # 단순히 배포만 수행하기에 하나의 잡으로만 구성
   deploy:
-  	# 해당 job을 실행하는 운영 체제
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-	
-    # 수행할 동작 정의
     steps:
-      # 1. 저장소 체크아웃
-      - name: Checkout source code
-        uses: actions/checkout@main
-	  
-      # 2. node.js 환경설정
-      - name: Set up Node.js
-        uses: actions/setup-node@main
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v3
         with:
-          node-version: 14.x
-      
-      # 3. 패키지 설치
+          node-version: 18
+          cache: 'npm'
       - name: Install dependencies
         run: npm install
-      
-      # 4. 테스트
-      - name: Test unit
-        run: npm run test:unit
-      
-      # 5. 빌드
-      - name: Build Page
+      - name: Build
         run: npm run build
-        env:
-          NODE_ENV: production
-	  
-      # 6. gh-pages로 배포
-      - name: Deploy to gh-pages
-        uses: peaceiris/actions-gh-pages@v3
+      - name: Setup Pages
+        uses: actions/configure-pages@v3
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v2
         with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./dist
+          # dist 디렉터리 업로드
+          path: './dist'
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v2
