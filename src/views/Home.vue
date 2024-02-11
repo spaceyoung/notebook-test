@@ -1,6 +1,6 @@
 <template>
   <div class="sec-header">
-    <h2 class="sec-title mb-4">나의 기록</h2>
+    <h2 class="sec-title mb-4">기록</h2>
   </div>
   <v-tabs v-model="state.selectTab" class="reading-tabs flex-0-0" grow>
     <v-tab v-for="tab in state.tabs" :key="tab.id" :value="tab.id">{{ tab.label }}</v-tab>
