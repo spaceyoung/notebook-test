@@ -19,5 +19,5 @@ export default defineConfig({
       }
     }
   },
-  base: '/notebook-test/',
+  base: process.env.NODE_ENV === 'production' ? '/notebook-test' : '/',
 });
