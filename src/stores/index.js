@@ -12,7 +12,7 @@ export const useNotebookStore = defineStore("notebook", () => {
   const DetailBaseURL = `/api/ItemLookUp.aspx?ttbkey=${ttbKey}&itemIdType=ISBN13&output=JS&Cover=Big&Version=20131101&ItemId=`;
 
   const state = reactive({
-    infoDialog: true,
+    infoModal: true,
     isLoading: false,
     options: ['제목으로 검색', '작가명으로 검색'],
     selectOption: '제목으로 검색',
@@ -26,8 +26,8 @@ export const useNotebookStore = defineStore("notebook", () => {
     searchBookList: [],
     platforms: ['종이책', '전자책', '오디오북'],
     readingStates: ['독서 중', '독서 완료'],
-    startDialog: false,
-    endDialog: false,
+    startModal: false,
+    endModal: false,
     recordBookDefault: {
       platform: null,
       readingState: null,
@@ -39,7 +39,8 @@ export const useNotebookStore = defineStore("notebook", () => {
       rating: 0,
       sentence: '',
       review: '',
-    }
+    },
+    deleteModal: false,
   });
 
   // 독서 중 데이터 로딩
@@ -49,7 +50,7 @@ export const useNotebookStore = defineStore("notebook", () => {
       const myReading = useCollection(myReadingDB);
       if (myReading) {
         state.myReadingList = myReading;
-        state.isLoading = false;
+        setTimeout(() => {state.isLoading = false}, 1000);
       }
       else {
         alert('데이터 조회에 실패했습니다.');
@@ -68,7 +69,7 @@ export const useNotebookStore = defineStore("notebook", () => {
       const myReadingEnd = useCollection(myReadingEndDB);
       if (myReadingEnd) {
         state.myReadingEndList = myReadingEnd;
-        state.isLoading = false;
+        setTimeout(() => {state.isLoading = false}, 1000);
       }
       else {
         alert('데이터 조회에 실패했습니다.');
@@ -91,7 +92,7 @@ export const useNotebookStore = defineStore("notebook", () => {
     state.isLoading = true;
     const results = await searchBookBase(searchWord);
     searchBookDetail(results);
-    state.isLoading = false;
+    setTimeout(() => {state.isLoading = false}, 1000);
   };
 
   // 도서 기본정보 검색
@@ -139,16 +140,16 @@ export const useNotebookStore = defineStore("notebook", () => {
   };
 
 
-  // 독서 날짜 Dialog 닫기
-  const closeDateDialog = (date, book) => {
+  // 독서 날짜 Modal 닫기
+  const closeDateModal = (date, book) => {
     const formattedDate = new Intl.DateTimeFormat('kr', { dateStyle: 'medium' }).format(date);
-    if (state.startDialog) {
+    if (state.startModal) {
       book.formattedStartDate = formattedDate;
-      state.startDialog = false;
+      state.startModal = false;
     }
-    if (state.endDialog) {
+    if (state.endModal) {
       book.formattedEndDate = formattedDate;
-      state.endDialog = false;
+      state.endModal = false;
     }
   };
 
@@ -213,7 +214,7 @@ export const useNotebookStore = defineStore("notebook", () => {
   const myReadingEndList = computed(() => state.myReadingEndList);
   const searchBookList = computed(() => state.searchBookList);
 
-  return { state, isLoading, myReadingList, myReadingEndList, searchBookList, myReadingProgress, vuefireMyReading, vuefireMyReadingEnd, searchBook, closeDateDialog, addMyReading, updateMyReading, deleteMyReading, addMyReadingEnd, updateMyReadingEnd, deleteMyReadingEnd };
+  return { state, isLoading, myReadingList, myReadingEndList, searchBookList, myReadingProgress, vuefireMyReading, vuefireMyReadingEnd, searchBook, closeDateModal, addMyReading, updateMyReading, deleteMyReading, addMyReadingEnd, updateMyReadingEnd, deleteMyReadingEnd };
 },
   {
     persist: true,

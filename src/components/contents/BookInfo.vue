@@ -12,7 +12,6 @@
         <span class="book-author">{{ book.author }}</span>
         <span class="book-publisher">{{ book.publisher }}</span>
         <span class="book-pubdate">{{ book.pubDate }}</span>
-        <span class="book-pubdate">{{ book.publisher }}</span>
       </v-card-text>
       <v-card-text class="pa-0">
         <span class="book-page"><em class="mr-3">페이지수</em>{{ book.page }}쪽</span>
