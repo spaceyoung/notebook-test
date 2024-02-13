@@ -12,6 +12,7 @@
     "@mdi/font": "^7.4.47",
     "axios": "^1.6.5",
     "firebase": "^10.7.2",
+    "http-proxy-middleware": "^2.0.6",
     "pinia": "^2.1.7",
     "pinia-plugin-persistedstate": "^3.2.1",
     "vue": "^3.3.11",
@@ -22,6 +23,7 @@
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^4.5.2",
-    "vite": "^5.0.8"
+    "vite": "^5.0.8",
+    "vite-plugin-proxy-middleware": "^1.0.2"
   }
 }
